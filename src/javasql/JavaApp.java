@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import oracle.jdbc.OracleDriver;
+import java.sql.PreparedStatement;
 /**
  *
  * @author domdu
@@ -18,11 +19,15 @@ public class JavaApp {
     public static void main(String[] args) throws SQLException{
         Connection con = DriverManager.getConnection("jdbc:oracle:thin:@144.217.163.57:1521:XE","hr", "inf5180");
         
-        Statement stm = con.createStatement();
-        
-        String sql = "insert into regions values (99999,'Zied Zaier')";
+        String sql = "insert into COUNTRIES values(?,?,?)";
     
-        int nombre= stm.executeUpdate(sql);
+        PreparedStatement stm=con.prepareStatement(sql);
+        stm.setString(1,"SP");
+        stm.setString(2,"Singapore");
+        stm.setInt(3,1);
+        
+        
+        int nombre= stm.executeUpdate();
     
         System.out.println("Le nombre est "+nombre);
     
